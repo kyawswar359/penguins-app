@@ -1,0 +1,45 @@
+mkdir penguins-project                                                                                                                                                                                                                                                              
+cd penguins-project 
+cp ~/Downloads/'penguins.csv' penguins.csv 
+ls
+
+nano main.py
+
+	import pandas as pd
+	df = pd.read_csv("penguins.csv")
+	print(df.head(10))
+
+
+nano requirement.txt
+ 
+nano Dockerfile 
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirement.txt .
+RUN pip install --no-cache-dir -r requirement.txt
+COPY main.py .
+COPY penguins.csv .
+CMD ["python", "main.py"]
+
+ls
+Dockerfile  main.py  requirement.txt  penguins.csv
+
+docker build -t penguins-app:v1 .
+docker images
+docker run --name penguins-container penguins-app:v1
+git init
+git branch -M main
+git add Dockerfile main.py requirement.txt penguins.csv
+git commit -m "Add containerized application"
+git status
+Commit လုပ်ရာတွင် name/email မသတ်မှတ်ရသေးဟု error ပေါ်လျှင်—
+git config --global user.name "github"
+git config --global user.email "your-email@example.comရေးပါ"
+git commit ကို ပြန်လုပ်ပါ။
+git commit -m "Add coitntainerized penguins application"
+
+Step 9 — GitHub သို့ push လုပ်ပါ
+GitHub website မှာ empty repository အသစ်တစ်ခုဖန်တီးပါ။ နာမည် က penguins-project လို့ပေးပါ
+git remote add origin https://github.com/YOUR-USERNAME/penguins-project.git
+git remote -v
+git push -u origin main
